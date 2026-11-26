@@ -1,0 +1,9 @@
+{
+  "name": "prise-de-note",
+  "version": "1.0.0",
+  "description": "Prise de notes partagée : clavier sur ordinateur + Apple Pencil sur iPad, sur le même document en temps réel.",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" },
+  "license": "MIT"
+}

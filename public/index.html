@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Notes">
+  <meta name="theme-color" content="#f6f5f1">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="stylesheet" href="style.css">
+  <title>Prise de notes</title>
+</head>
+<body>
+  <!-- ================= Liste des notes ================= -->
+  <section id="home" class="view" hidden>
+    <header class="home-head">
+      <h1>Mes notes</h1>
+      <button id="new-note" class="primary">+ Nouvelle note</button>
+    </header>
+    <p id="connect-hint" class="hint"></p>
+    <div id="note-list" class="note-list"></div>
+  </section>
+
+  <!-- ================= Éditeur ================= -->
+  <section id="editor-view" class="view" hidden>
+    <header class="toolbar">
+      <div class="group">
+        <button id="back" class="icon" title="Mes notes" aria-label="Mes notes">
+          <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <input id="title" class="title-input" placeholder="Titre" autocomplete="off" spellcheck="false">
+      </div>
+
+      <div class="group tools" role="radiogroup" aria-label="Outil">
+        <button class="tool icon" data-tool="text" title="Texte (clavier / Scribble)" aria-label="Texte">
+          <svg viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg>
+        </button>
+        <button class="tool icon" data-tool="pen" title="Stylo" aria-label="Stylo">
+          <svg viewBox="0 0 24 24"><path d="M4 20l1-5L16 4l4 4L9 19z M14 6l4 4"/></svg>
+        </button>
+        <button class="tool icon" data-tool="hl" title="Surligneur" aria-label="Surligneur">
+          <svg viewBox="0 0 24 24"><path d="M9 14l-3 3v3h3l3-3 M9 14l7-9 4 4-9 7z"/><path d="M4 21h16" class="hl-line"/></svg>
+        </button>
+        <button class="tool icon" data-tool="eraser" title="Gomme" aria-label="Gomme">
+          <svg viewBox="0 0 24 24"><path d="M8 20h12 M5 15l9-9 5 5-8 8H8z M9 11l5 5"/></svg>
+        </button>
+      </div>
+
+      <div class="group ink-options">
+        <div id="colors" class="colors"></div>
+        <div id="sizes" class="sizes"></div>
+      </div>
+
+      <div class="group text-options">
+        <select id="block-type" title="Style du paragraphe" aria-label="Style du paragraphe">
+          <option value="p">Texte</option>
+          <option value="h1">Titre</option>
+          <option value="h2">Sous-titre</option>
+          <option value="li">Liste</option>
+          <option value="todo">À faire</option>
+        </select>
+        <button class="fmt icon" data-cmd="bold" title="Gras (⌘B)" aria-label="Gras"><b>G</b></button>
+        <button class="fmt icon" data-cmd="italic" title="Italique (⌘I)" aria-label="Italique"><i>I</i></button>
+        <button class="fmt icon" data-cmd="underline" title="Souligné (⌘U)" aria-label="Souligné"><u>S</u></button>
+      </div>
+
+      <div class="group">
+        <button id="undo" class="icon" title="Annuler le dernier trait" aria-label="Annuler">
+          <svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5 M4 9h10a6 6 0 010 12h-3"/></svg>
+        </button>
+        <button id="redo" class="icon" title="Rétablir" aria-label="Rétablir">
+          <svg viewBox="0 0 24 24"><path d="M15 14l5-5-5-5 M20 9H10a6 6 0 000 12h3"/></svg>
+        </button>
+        <button id="menu-btn" class="icon" title="Options" aria-label="Options">
+          <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></svg>
+        </button>
+        <span id="status" class="status" title="État de la synchronisation"><i></i><span>…</span></span>
+      </div>
+
+      <div id="menu" class="menu" hidden>
+        <label>Papier
+          <select id="paper">
+            <option value="lines">Lignes</option>
+            <option value="grid">Carreaux</option>
+            <option value="dots">Points</option>
+            <option value="blank">Blanc</option>
+          </select>
+        </label>
+        <label class="check"><input type="checkbox" id="finger-draw"> Dessiner aussi avec le doigt</label>
+        <button id="delete-note" class="danger">Supprimer la note</button>
+      </div>
+    </header>
+
+    <main id="stage">
+      <div id="scroller">
+        <div id="scaler">
+          <div id="page" class="paper-lines">
+            <div id="editor" contenteditable="true" spellcheck="true" autocapitalize="sentences"></div>
+          </div>
+        </div>
+      </div>
+      <canvas id="ink"></canvas>
+      <canvas id="live"></canvas>
+    </main>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
